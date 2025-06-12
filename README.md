@@ -82,3 +82,91 @@ In this project, we will use job title 'Data analyst' as an example.
 
 ### 3.2 Codes
 
+#### Module 1: Import infrastructure from Scrapfly
+```python
+import json
+import asyncio
+from loguru import logger as log
+from scrapfly import ScrapeConfig, ScrapflyClient, ScrapeApiResponse
+from lxml import html
+from urllib.parse import urlencode, quote_plus
+
+# Initialize Scrapfly client with your API key
+SCRAPFLY = ScrapflyClient(key="scp-live-29eb1fea76d9446eac9f5ba0027653fc")
+
+# Base configuration for scraping
+BASE_CONFIG = {
+    "asp": True,
+    "country": "US",
+    "headers": {
+        "Accept-Language": "en-US,en;q=0.5"
+    }
+}
+```
+
+#### Module 2: Parse job urls and the total of results from a job search page
+```python
+async def parse_job_search(response: ScrapeApiResponse):
+        # Get the HTML content which is assigned to the key "content" in the response dictionary
+        content = response.scrape_result['content']
+        
+        # Parse the HTML content
+        tree = html.fromstring(content)
+        log.info(f"tree detail: {tree}")
+
+        # Extract job URLs which have href attributes
+        job_urls = tree.xpath('//a[contains(@class, "base-card__full-link")]/@href')
+        urls = []
+        for url in job_urls:
+            urls.append(url)
+
+        # Extract the number of total results
+        total_results = tree.xpath("//span[@class='results-context-header__job-count']/text()")
+        total_results = int(total_results[0].strip()) if total_results else 0
+
+        # Store job URLs and the total number of results in a dictionary    
+        result = {"urls": urls, "total_results": total_results}
+        return result
+```
+
+#### Module 3: Parse urls from all search pages 
+```python
+async def scrape_job_search(keyword: str, max_pages: int = None):
+    
+    def form_urls_params(keyword): #keyword is the job title which we want to search
+        # form the job search URL params
+        params = {'keywords': quote_plus(keyword)}
+        return urlencode(params)
+
+    # Get the response of the first page
+    first_page_url = "https://www.linkedin.com/jobs/search?f_E=1%2C2&geoId=104195383&" + form_urls_params(keyword)
+    first_page_response = await SCRAPFLY.async_scrape(ScrapeConfig(first_page_url, **BASE_CONFIG, render_js=True))
+    
+    # Scrape URLs of job listings in the first page and total results
+    first_page_data = await parse_job_search(first_page_response)
+    urls = first_page_data['urls']
+    total_results = first_page_data['total_results']
+
+    # Calculate the number of pages to scrape
+    if max_pages and max_pages * 25 < total_results:
+        total_results = max_pages * 25
+    log.info(f'Scraped the first job page, {total_results // 25 - 1} more pages')
+
+    # Scrape the remaining pages concurrently
+    other_pages_url = "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?f_E=1%2C2&geoId=104195383&"
+    to_scrape = [ScrapeConfig(other_pages_url + form_urls_params(keyword) + f"&start={index}", **BASE_CONFIG, render_js=True)
+                 for index in range(25, total_results + 25, 25)]
+    
+    async for response in SCRAPFLY.concurrent_scrape(to_scrape):
+        if response.status_code == 200:
+            result = await parse_job_search(response)  # Await this call
+            page_urls = result['urls']
+            urls.extend(page_urls)
+            log.debug(f"Scraped {len(page_data)} jobs from this page. Total jobs collected: {len(urls)}")
+        else:
+            log.error(f"Failed to scrape: Status code {response.status_code}")
+            return None
+
+    log.success(f'Scraped {len(urls)} jobs from LinkedIn job search')
+    return urls # Return a list of urls 
+```
