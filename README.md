@@ -105,6 +105,9 @@ BASE_CONFIG = {
 ```
 
 #### Module 2: Parse job urls and the total of results from a job search page
+- The input is a response returned by Scrapfly after it sent the URL request to LinkedIn server.
+- The response is a dictionary which has the key "content" storing HTML of a search page.
+- We need to access the value of "content" key to parse the job URLs and the total number of results.
 ```python
 async def parse_job_search(response: ScrapeApiResponse):
         # Get the HTML content which is assigned to the key "content" in the response dictionary
@@ -170,3 +173,23 @@ async def scrape_job_search(keyword: str, max_pages: int = None):
     log.success(f'Scraped {len(urls)} jobs from LinkedIn job search')
     return urls # Return a list of urls 
 ```
+#### Module 4: Run the code
+- We want to search for jobs related to keyword "financial risk management"; hence, we input that keyword to parameter "keyword" in function scrape_job_search.
+- The result is saved to a JSON file and downloaded to the computer.
+```python
+async def run():
+    job_search_data = await scrape_job_search(
+        keyword="financial risk management", max_pages = 10
+    )
+    print(job_search_data)
+    # Save the data to a JSON file
+    with open("u2_financial_risk_management.json", "w", encoding="utf-8") as file:
+        json.dump(job_search_data, file, indent=2, ensure_ascii=False)
+
+# Directly use `await` in the interactive shell
+await run()
+```
+#### Output
+We obtain a list of URLs for the job title financial risk management.
+<img width="1062" alt="image" src="https://github.com/user-attachments/assets/e4959d13-6924-47c7-862c-3ecd97fe5d6e" />
+
