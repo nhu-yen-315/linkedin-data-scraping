@@ -15,7 +15,7 @@ Tools Used: Python, Scrapfly-web scraping service
    3.2 Scrape job descriptions from job pages
 5. 📊 Modules
 6. 🔎 Data output
-7. Summary
+7. ⛳️ Summary
 
 ---
 ## 1. 📌 Background & Overview
