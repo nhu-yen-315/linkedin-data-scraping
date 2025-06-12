@@ -83,7 +83,7 @@ In this project, we will use job title 'Data analyst' as an example.
 ### 3.2 Codes
 
 #### Module 1: Import infrastructure from Scrapfly
-- To get the Scrapfly key, we need to register an account with Scrapfly. Here is the sign-up link https://scrapfly.io/register. 
+- To get the key, we need to register an account with Scrapfly. Here is the sign-up link https://scrapfly.io/register. 
 ```python
 import json
 import asyncio
