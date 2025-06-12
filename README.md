@@ -10,12 +10,12 @@ Tools Used: Python, Scrapfly-web scraping service
 ## 📑 Table of Contents  
 1. 📌 Background & Overview 
 2. 📂 The structure of LinkedIn website
-3. Scrape URLs of job posts from the job search page <br>
+3. 🔑 Scrape URLs of job posts from the job search page <br>
    3.1 Workflows <br>
    3.2 Codes <br>
-4 Scrape job descriptions from job pages <br>
- 4.1 Workflows <br>
- 4.2 Codes <br>
+4. 📄 Scrape job descriptions from job pages <br>
+  4.1 Workflows <br>
+  4.2 Codes <br>
 5. 🔎 Data output
 6. ⛳️ Summary
 
@@ -42,7 +42,7 @@ The project will benefit:
 
 
 --- 
-## 3.  Scrape URLs of job posts from the job search page
+## 🔑 3.  Scrape URLs of job posts from the job search page
 In this project, we will use job title 'Data analyst' as an example.
 
 ### 3.1 Workflows
