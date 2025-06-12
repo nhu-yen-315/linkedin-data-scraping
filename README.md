@@ -52,8 +52,7 @@ In this project, we will use job title 'Data analyst' as an example.
 
 **Step 2:** Fill and search a job title in the search box
 - In the search box, fill in the job title which you want to find. We will use "Data analyst" as an example.
-- From the appearing URL https://www.linkedin.com/jobs/search/?currentJobId=4244696811&geoId=104195383&keywords=data%20analyst&origin=JOB_SEARCH_PAGE_KEYWORD_AUTOCOMPLETE&refresh=true, we see an important parameter as follows:
-  + keywords=data%20analyst
+- From the appearing URL https://www.linkedin.com/jobs/search/?currentJobId=4244696811&geoId=104195383&keywords=data%20analyst&origin=JOB_SEARCH_PAGE_KEYWORD_AUTOCOMPLETE&refresh=true, we see that "keywords" is an important parameter for the job title. Other parameters are not crucial.
 - Hence, the formatted URL after entering the job title: https://www.linkedin.com/jobs/search/?keywords={JobTitle}
 
 <img width="1307" alt="image" src="https://github.com/user-attachments/assets/2bba0079-d675-497c-bf02-474466c6ec94" /> <br>
