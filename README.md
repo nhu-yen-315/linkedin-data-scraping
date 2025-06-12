@@ -42,11 +42,10 @@ The project will benefit:
 
 
 --- 
-## 3. 🧠 Workflows
-We will collect job postings by searching a specific job title. There are two main steps. The first step is to scrape a list of job URLS via the job search page. The second step is to scrape job details of each job link via the job page. 
+## 3.  Scrape URLs of job posts from the job search page
 In this project, we will use job title 'Data analyst' as an example.
 
-### 3.1 Scrape URLs of job posts from the job search page
+### 3.1 Workflows
 **Step 1:** Open "Jobs" section
 - In the navigation bar, click on "Jobs" icon.
 - The formatted URL is https://www.linkedin.com/jobs/
@@ -81,10 +80,5 @@ In this project, we will use job title 'Data analyst' as an example.
 - The formatted URL to turn to nth page: https://www.linkedin.com/jobs/search/?f_E={ExperienceID}&geoId={IDnumber}&keywords={JobTitle}&start={25*(n-1)}
 <img width="1305" alt="image" src="https://github.com/user-attachments/assets/eae07d09-8924-4eba-856c-44d9149691c2" />
 
+### 3.2 Codes
 
-
-### 3.2 Scrape job descriptions from job pages 
-**Step 1:** 
-
----
-## 4. Modules
