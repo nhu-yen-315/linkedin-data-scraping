@@ -22,7 +22,7 @@ Tools Used: Python, Scrapfly-web scraping service
 
 ### Objective:
 ### 📖 What is this project about? 
-- The project aims to collect LinkedIn job postings related to the business administration undegraduate major.
+- The project aims to collect LinkedIn job postings related to the business administration undegraduate major. The project only focuses on jobs located in Vietnam.
 - Data output will then be used in another project (click to this link) to identify the most demanded skills by employers.
 
 
@@ -77,7 +77,7 @@ In this project, we will use job title 'Data analyst' as an example.
 
 - The URL of the second page is https://www.linkedin.com/jobs/search/?currentJobId=4239373647&f_E=1%2C2&geoId=104195383&keywords=data%20analyst&origin=JOB_SEARCH_PAGE_JOB_FILTER&refresh=true&start=25. start=25 specifies the second page starting with the job number 26 which has index 25. So the nth page is specified in URL as start={25*(n-1)}.
 
-- The formatted URL to turn to nth page: https://www.linkedin.com/jobs/search/?geoId={IDnumber}&keywords={JobTitle}&start={25*(n-1)}
+- The formatted URL to turn to nth page: https://www.linkedin.com/jobs/search/?f_E={ExperienceID}&geoId={IDnumber}&keywords={JobTitle}&start={25*(n-1)}
 <img width="1305" alt="image" src="https://github.com/user-attachments/assets/eae07d09-8924-4eba-856c-44d9149691c2" />
 
 
