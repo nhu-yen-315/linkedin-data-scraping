@@ -225,6 +225,7 @@ urls = [item for item in json_data]
 ```
 
 #### Module 6: Save parsed job details 
+- All parsed details will be saved to a file and downloaded to the computer.
 ```python
 # Function to save the descriptions to a .txt or .json file
 def save_descriptions_to_file(descriptions):
