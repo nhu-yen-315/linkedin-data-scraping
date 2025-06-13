@@ -24,8 +24,8 @@ Tools Used: Python, Scrapfly-web scraping service
 
 ### Objective:
 ### 📖 What is this project about? 
-- The project aims to collect LinkedIn job postings related to the business administration undegraduate major. The project only focuses on jobs located in Vietnam.
-- Data output will then be used in another project (click to this link) to identify the most demanded skills by employers.
+- The project aims to collect LinkedIn job postings related to 2 undegraduate majors: business administration, and finance and accounting. The project only focuses on jobs located in Vietnam.
+- The project is a part of student research project conducted by two authors.
 
 
 ### 👤 Who is this project for? 
@@ -34,14 +34,15 @@ The project will benefit:
 ✔️ Data scientists who want to learn the procedure of scraping LinkedIn jobs <br>
 ✔️ Human resource managers for CV round <br>
 ✔️ Data analyst managers for CV round
+
 ### 🎯Project Outcome:  
-(Number of job postings collected)
+We successfully scraped 591 and 216 job descriptions for jobs related business administration major and finance and accounting major respectively.
 
 ---
 ## 2. 📂 The structure of LinkedIn website
 
 - When we search a job title from the job search page, the result contains a list of jobs on the left-hand side and the detail of a job post on the right-hand side (see the picture).
-![image](https://github.com/user-attachments/assets/deb9f26a-651f-40f2-8113-d44b8fc815b6) <br>
+![image](https://github.com/user-attachments/assets/2db3f3e6-7484-4890-aae5-67fa9d63accc) <br>
 
 - After suspecting the left-hand side panel HTML, we see the location of URLs as below: 
 ![image](https://github.com/user-attachments/assets/4229493e-9d14-4d7f-a0d8-ab997838a62f) <br>
@@ -210,11 +211,12 @@ We obtain a list of URLs for the job title financial risk management.
 <img width="1062" alt="image" src="https://github.com/user-attachments/assets/e4959d13-6924-47c7-862c-3ecd97fe5d6e" />
 
 ---
-### 4. 📄 Scrape job details
-After scraping URLs of job listings, we will send each URL to LinkedIn server via Scrapfly to get its detail information.
-#### 4.1 Workflows 
+## 4. 📄 Scrape job details
 
-#### 4.2 Codes 
+### 4.1 Workflows 
+After scraping URLs of job listings, we will send each URL to LinkedIn server via Scrapfly to get its detail information.
+
+### 4.2 Codes 
 #### Module 5: Input the list of URLs from the computer
 - In this example, we will scrape details of financial risk management jobs for URLs we scraped in section 3. 
 ```python
@@ -308,3 +310,17 @@ if __name__ == "__main__":
     else:
         result = await scrape_urls()
 ```
+
+---
+## 5. 🔎 Data output
+Business administration major:
+- Input: We use keywords including data analyst, business analyst, human resource, secretary, sales assisstant, consultant, product assisstant, management trainee, brand development, project management, international business, business development, marketing intern. These are common jobs for BA students.
+- Output: We scraped 591 jobs.
+
+Finance and accounting major:
+- Input: We use keywords including financial analyst, junior accountant, junior auditor, tax associate, credit analyst, investment analyst, bookkeeper, treasury analyst, financial planner assisstant, risk analyst, budget analyst, internal auditor, payroll administrator, financial risk management, cost accountant, portfolio assistant.
+- Output: We scraped 216 jobs. 
+
+---
+## 6. ⛳️ Summary
+In this project, we scrape LinkedIn job postings using Python and Scrapfly. The scraping procedure includes two steps: scraping URLs of job listings and scraping the job details. We successfully scraped 591 and 216 job descriptions for business administration and finance and accounting majors respectively.
