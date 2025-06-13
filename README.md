@@ -323,4 +323,4 @@ Finance and accounting major:
 
 ---
 ## 6. ⛳️ Summary
-In this project, we scrape LinkedIn job postings using Python and Scrapfly. The scraping procedure includes two steps: scraping URLs of job listings and scraping the job details. We successfully scraped 591 and 216 job descriptions for business administration and finance and accounting majors respectively.
+In this project, we scrape LinkedIn job postings using Python and Scrapfly. The scraping procedure includes two steps: scraping URLs of job listings and scraping the job details. We successfully scraped 1700 and 621 job descriptions for business administration and finance and accounting majors respectively.
