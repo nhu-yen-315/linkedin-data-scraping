@@ -36,7 +36,7 @@ The project will benefit:
 ✔️ Data analyst managers for CV round
 
 ### 🎯Project Outcome:  
-We successfully scraped 1700 and 621 job descriptions for jobs related business administration major and finance and accounting major respectively.
+We successfully scraped 1700 and 621 job descriptions for business administration major and finance and accounting major respectively.
 
 ---
 ## 2. 📂 The structure of LinkedIn website
