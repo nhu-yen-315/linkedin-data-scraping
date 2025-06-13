@@ -36,7 +36,7 @@ The project will benefit:
 ✔️ Data analyst managers for CV round
 
 ### 🎯Project Outcome:  
-We successfully scraped 591 and 216 job descriptions for jobs related business administration major and finance and accounting major respectively.
+We successfully scraped 1700 and 621 job descriptions for jobs related business administration major and finance and accounting major respectively.
 
 ---
 ## 2. 📂 The structure of LinkedIn website
@@ -315,11 +315,11 @@ if __name__ == "__main__":
 ## 5. 🔎 Data output
 Business administration major:
 - Input: We use keywords including data analyst, business analyst, human resource, secretary, sales assisstant, consultant, product assisstant, management trainee, brand development, project management, international business, business development, marketing intern. These are common jobs for BA students.
-- Output: We scraped 591 jobs.
+- Output: We scraped 1700 jobs.
 
 Finance and accounting major:
 - Input: We use keywords including financial analyst, junior accountant, junior auditor, tax associate, credit analyst, investment analyst, bookkeeper, treasury analyst, financial planner assisstant, risk analyst, budget analyst, internal auditor, payroll administrator, financial risk management, cost accountant, portfolio assistant.
-- Output: We scraped 216 jobs. 
+- Output: We scraped 621 jobs. 
 
 ---
 ## 6. ⛳️ Summary
