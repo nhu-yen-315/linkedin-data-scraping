@@ -209,3 +209,101 @@ await run()
 We obtain a list of URLs for the job title financial risk management.
 <img width="1062" alt="image" src="https://github.com/user-attachments/assets/e4959d13-6924-47c7-862c-3ecd97fe5d6e" />
 
+---
+### 4. 📄 Scrape job details
+After scraping URLs of job listings, we will send each URL to LinkedIn server via Scrapfly to get its detail information.
+#### 4.1 Workflows 
+
+#### 4.2 Codes 
+#### Module 5: Input the list of URLs from the computer
+- In this example, we will scrape details of financial risk management jobs for URLs we scraped in section 3. 
+```python
+file_path = '/Users/nhuyenhuynh/u2_financial_risk_management.json'  
+with open(file_path, 'r', encoding='utf-8') as file:
+    json_data = json.load(file)
+urls = [item for item in json_data]
+```
+
+#### Module 6: Save parsed job details 
+```python
+# Function to save the descriptions to a .txt or .json file
+def save_descriptions_to_file(descriptions):
+    file_path_json = '/Users/nhuyenhuynh/d2_financial_risk_management.json'
+
+    try:
+        # Optionally save as .json file (formatted JSON)
+        with open(file_path_json, 'w', encoding='utf-8') as file:
+            json.dump(descriptions, file, ensure_ascii=False, indent=4)
+        print(f"Descriptions saved to {file_path_json}")
+
+    except Exception as e:
+        print(f"Error saving descriptions to file: {e}")
+```
+
+#### Module 7: Scrape job details from URLs
+- The job detail is stored in the selector //script[@type="application/ld+json".
+- All job details are stored in a file.
+```python
+async def scrape_urls():
+    to_scrape = [
+        ScrapeConfig(url, **BASE_CONFIG) for url in urls
+    ]
+    
+    # Initialize a list to store the cleaned descriptions
+    descriptions = []
+
+    async for response in SCRAPFLY.concurrent_scrape(to_scrape):
+        try:
+            if response.status_code == 200:
+                # Get the HTML content
+                content = response.scrape_result['content']
+                
+                # Parse the HTML content
+                tree = html.fromstring(content)
+                
+                # Extract the JSON content from the <script> tag
+                json_script = tree.xpath('//script[@type="application/ld+json"]/text()')
+                
+                # If the script is found and contains valid JSON, parse it
+                if json_script:
+                    try:
+                        job_posting_data = json.loads(json_script[0])  # Parse the first matching script tag
+                        description = job_posting_data.get("description", "")
+                        
+                        # Decode HTML entities (e.g., &lt;br&gt; to <br>)
+                        description_cleaned = unescape(description)
+                        
+                        # Remove any remaining HTML tags
+                        description_no_tags = re.sub(r'<.*?>', ' ', description_cleaned)
+                        
+                        # Append the cleaned description to the list
+                        descriptions.append(description_no_tags)
+                        
+                
+                    except json.JSONDecodeError as e:
+                        print(f"Failed to decode JSON: {e}")
+                else:
+                    print("No <script> tag with type 'application/ld+json' found")
+                
+            else:
+                log.error(f"Failed to scrape: Status code {response.status_code}")
+                return None
+                
+        except Exception as e:
+            log.error(f"Error processing response: {str(e)}")
+            return None
+
+    # Save the descriptions to a file after scraping is complete
+    save_descriptions_to_file(descriptions)
+
+    # Return descriptions if needed
+    return 'finish the scraping'
+```
+#### Module 8: Run the code
+```python
+if __name__ == "__main__":
+    if not asyncio.get_event_loop().is_running():
+        result = asyncio.run(scrape_urls())
+    else:
+        result = await scrape_urls()
+```
