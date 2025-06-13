@@ -13,7 +13,7 @@ Tools Used: Python, Scrapfly-web scraping service
 3. 🔑 Scrape URLs of job posts from the job search page <br>
    3.1 Workflows <br>
    3.2 Codes <br>
-4. 📄 Scrape job descriptions from job pages <br>
+4. 📄 Scrape job details <br>
   4.1 Workflows <br>
   4.2 Codes <br>
 5. 🔎 Data output
@@ -40,7 +40,20 @@ The project will benefit:
 ---
 ## 2. 📂 The structure of LinkedIn website
 
+- When we search a job title from the job search page, the result contains a list of jobs on the left-hand side and the detail of a job post on the right-hand side (see the picture).
+![image](https://github.com/user-attachments/assets/deb9f26a-651f-40f2-8113-d44b8fc815b6) <br>
 
+- After suspecting the left-hand side panel HTML, we see the location of URLs as below: 
+![image](https://github.com/user-attachments/assets/4229493e-9d14-4d7f-a0d8-ab997838a62f) <br>
+
+- After suspecting the right-hand side panel HTML, we see the location of a job detail as below: 
+![image](https://github.com/user-attachments/assets/a94076bc-ceef-4b88-a6da-b7267e7b3ec4) <br>
+
+It is worth noting that we can't see all job details at the same time. We need to click on a specific job listing on the left-hand side to see its detail on the right-hand side. <br>
+👉 Hence, we need to scrape the URLs of job listings first. Then, we access to each URL to scrape the job detail. The scraping procedure will be divided into two parts: <br>
+    Part 1: Scrape URLs of job posts from the job search page <br>
+    Part 2: Scrape job details
+     
 --- 
 ## 🔑 3.  Scrape URLs of job posts from the job search page
 In this project, we will use job title 'Data analyst' as an example.
@@ -134,6 +147,8 @@ async def parse_job_search(response: ScrapeApiResponse):
 ```
 
 #### Module 3: Parse urls from all search pages 
+- The input is the job title which we want to find.
+- The output is a list of job urls related to that job title.
 ```python
 async def scrape_job_search(keyword: str, max_pages: int = None):
     
